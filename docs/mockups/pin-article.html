@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIN — Мэдээний дэлгэрэнгүй</title>
+<style>
+  :root{
+    --accent:#E8442E;
+    --ink:#141414;
+    --ink-soft:#555;
+    --paper:#FAF8F5;
+    --card:#FFFFFF;
+    --line:#E7E2DB;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,248,245,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{display:flex;align-items:center;gap:28px;height:64px;}
+  .logo{display:flex;align-items:baseline;font-weight:800;font-size:28px;letter-spacing:-1px;}
+  .logo .pin-i{color:var(--accent);display:inline-block;transform:translateY(1px);}
+  .logo .pin-i svg{width:14px;height:26px;display:block;}
+  .logo .dot{color:var(--accent);}
+  nav{display:flex;gap:20px;font-size:14.5px;font-weight:600;color:var(--ink-soft);}
+  nav a.active{color:var(--accent);}
+  .head-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+  .btn{background:var(--ink);color:#fff;border:none;cursor:pointer;padding:9px 18px;border-radius:100px;font-size:13.5px;font-weight:700;}
+  .btn.accent{background:var(--accent);}
+  @media(max-width:700px){nav{display:none;}}
+
+  /* progress bar */
+  .progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:60;transition:width .1s linear;}
+
+  .article-grid{display:grid;grid-template-columns:56px 1fr 320px;gap:34px;padding:40px 0 60px;}
+  @media(max-width:980px){.article-grid{grid-template-columns:1fr;}.share-rail{display:none;}}
+
+  /* ---------- share rail ---------- */
+  .share-rail{position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:10px;}
+  .share-btn{
+    width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:var(--ink-soft);transition:all .15s ease;font-size:15px;
+  }
+  .share-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .share-btn svg{width:17px;height:17px;fill:currentColor;}
+  .share-count{text-align:center;font-size:11.5px;font-weight:700;color:#999;}
+
+  /* ---------- article ---------- */
+  .crumb{font-size:12.5px;color:#999;font-weight:600;margin-bottom:14px;}
+  .crumb b{color:var(--accent);}
+  .tag{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+  h1.title{font-size:clamp(26px,3.6vw,40px);letter-spacing:-1px;line-height:1.15;margin:8px 0 14px;}
+  .lead{font-size:18px;color:var(--ink-soft);margin-bottom:18px;max-width:640px;}
+  .byline{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:22px;}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(145deg,#c9d6ea,#8fa8c9);}
+  .byline .who{font-size:13.5px;font-weight:700;}
+  .byline .when{font-size:12.5px;color:#999;}
+  .byline .listen{
+    margin-left:auto;display:flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:700;color:var(--accent);cursor:pointer;
+    border:1px solid var(--line);border-radius:100px;padding:8px 14px;background:#fff;
+  }
+
+  .hero-img{
+    border-radius:16px;height:340px;margin-bottom:8px;position:relative;overflow:hidden;
+    background:radial-gradient(120% 90% at 85% 10%, rgba(232,68,46,.5), transparent 60%),linear-gradient(160deg,#2b3a67,#101528);
+  }
+  .caption{font-size:12.5px;color:#999;margin-bottom:26px;}
+
+  /* Semafor-style blocks */
+  .block{margin-bottom:26px;}
+  .block-label{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+  .block-label::before{content:"";width:18px;height:3px;background:var(--accent);border-radius:2px;}
+  .block p{font-size:16px;margin-bottom:12px;max-width:640px;}
+  .block ul{margin:0 0 12px 20px;max-width:620px;}
+  .block li{font-size:15.5px;margin-bottom:8px;}
+  .block.view{
+    background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:var(--radius);padding:22px 24px;
+  }
+  .pull{
+    font-size:22px;letter-spacing:-.4px;line-height:1.4;font-weight:700;
+    border-left:4px solid var(--accent);padding:6px 0 6px 20px;margin:26px 0;max-width:600px;
+  }
+  .pull span{display:block;font-size:13px;color:#999;font-weight:600;margin-top:8px;}
+
+  .inline-video{
+    position:relative;border-radius:16px;height:280px;margin:6px 0 8px;overflow:hidden;cursor:pointer;
+    background:linear-gradient(150deg,#274156,#101d26);display:flex;align-items:flex-end;color:#fff;
+  }
+  .inline-video::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7));}
+  .play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:56px;height:56px;border-radius:50%;
+    background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;transition:all .15s ease;
+  }
+  .play::after{content:"";margin-left:4px;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;}
+  .inline-video:hover .play{background:var(--accent);border-color:var(--accent);}
+  .iv-body{position:relative;padding:16px 18px;font-size:14.5px;font-weight:700;}
+  .duration{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.7);font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:6px;}
+
+  /* tags + reactions */
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0;}
+  .tags a{font-size:12.5px;font-weight:700;border:1px solid var(--line);background:#fff;border-radius:100px;padding:6px 14px;color:var(--ink-soft);}
+  .tags a:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- sidebar ---------- */
+  aside .box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-bottom:18px;}
+  aside .box.dark{background:var(--ink);color:#fff;border-color:var(--ink);}
+  aside h3{font-size:17px;letter-spacing:-.3px;margin-bottom:6px;}
+  aside p{font-size:13.5px;color:var(--ink-soft);}
+  .box.dark p{color:#bbb;}
+  .nl-form{display:flex;gap:8px;margin-top:14px;}
+  .nl-form input{flex:1;border:1px solid #444;background:#222;color:#fff;border-radius:100px;padding:10px 16px;font-size:13px;outline:none;min-width:0;}
+  .rel{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);}
+  .rel:last-child{border-bottom:none;}
+  .rel .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+  .rel h5{font-size:13.5px;line-height:1.35;}
+  .rel span{font-size:12px;color:#999;}
+  .ad-label{display:block;text-align:center;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b3ada4;margin-bottom:6px;}
+  .ad-mpu{
+    background:linear-gradient(150deg,#204A2E,#2F6B42);color:#fff;
+    border:1px dashed transparent;border-radius:12px;padding:22px;text-align:center;
+  }
+  .ad-mpu h4{font-size:16px;}
+  .ad-mpu p{font-size:12.5px;color:#c4dccb;margin:6px 0 14px;}
+  .ad-mpu .btn{background:#fff;color:#204A2E;}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--ink-soft);font-size:13px;}
+  .foot-inner{display:flex;flex-wrap:wrap;gap:20px;align-items:center;}
+  .foot-links{display:flex;gap:18px;margin-left:auto;font-weight:600;}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);
+    background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;
+    padding:11px 22px;border-radius:100px;opacity:0;transition:all .3s ease;z-index:99;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+<div class="progress" id="bar"></div>
+
+<header>
+  <div class="wrap head-inner">
+    <a class="logo" href="#">P<span class="pin-i"><svg viewBox="0 0 14 26" fill="currentColor"><circle cx="7" cy="5" r="5"/><rect x="5.4" y="9" width="3.2" height="13" rx="1.6"/><path d="M7 22 L7 26" stroke="currentColor" stroke-width="2"/></svg></span>N<span class="dot">.</span></a>
+    <nav>
+      <a href="#">Өнөөдөр</a>
+      <a class="active" href="#">Улс төр</a>
+      <a href="#">Эдийн засаг</a>
+      <a href="#">Технологи</a>
+      <a href="#">Видео</a>
+      <a href="#">Үйл явдал</a>
+    </nav>
+    <div class="head-right">
+      <button class="btn accent">Бүртгүүлэх</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap article-grid">
+
+  <!-- share rail -->
+  <div class="share-rail">
+    <button class="share-btn" onclick="toast('Facebook-т хуваалцах цонх (демо)')"><svg viewBox="0 0 24 24"><path d="M13.5 9H16l.5-3h-3V4.5c0-.9.3-1.5 1.6-1.5H16.6V.2C16.3.2 15.3 0 14.1 0 11.6 0 10 1.5 10 4.2V6H7.5v3H10v9h3.5V9z"/></svg></button>
+    <button class="share-btn" onclick="toast('X-д хуваалцах цонх (демо)')"><svg viewBox="0 0 24 24"><path d="M18.9 1.2h3.7l-8.1 9.3L24 23.2h-7.5l-5.9-7.7-6.7 7.7H.2l8.7-9.9L0 1.2h7.7l5.3 7 5.9-7z"/></svg></button>
+    <button class="share-btn" onclick="toast('Линк хуулагдлаа ✓')"><svg viewBox="0 0 24 24"><path d="M10.6 13.4a1 1 0 0 0 1.4 1.4l4-4a3 3 0 0 0-4.2-4.2l-2 2a1 1 0 1 0 1.4 1.4l2-2a1 1 0 0 1 1.4 1.4l-4 4zm2.8-2.8a1 1 0 0 0-1.4-1.4l-4 4a3 3 0 1 0 4.2 4.2l2-2a1 1 0 1 0-1.4-1.4l-2 2a1 1 0 0 1-1.4-1.4l4-4z"/></svg></button>
+    <button class="share-btn" onclick="toast('Пинлэгдлээ 📌')" style="color:var(--accent)">📌</button>
+    <div class="share-count">1.2К<br>хуваалцсан</div>
+  </div>
+
+  <!-- article body -->
+  <main>
+    <div class="crumb">Нүүр / Улс төр / <b>Онцлох</b></div>
+    <span class="tag">Улс төр · Тайлбар</span>
+    <h1 class="title">Намрын чуулган: Татварын шинэчлэл юуг өөрчлөх вэ?</h1>
+    <p class="lead">Бизнес эрхлэгчид болон энгийн иргэдэд хамгийн их нөлөөлөх 5 өөрчлөлтийг задлан тайлбарлав.</p>
+
+    <div class="byline">
+      <div class="avatar"></div>
+      <div>
+        <div class="who">Б. Сарнай · Улс төрийн редактор</div>
+        <div class="when">2026.08.01 · 09:40 · 5 мин унших</div>
+      </div>
+      <button class="listen">🎧 Сонсох · 6:12</button>
+    </div>
+
+    <div class="hero-img"></div>
+    <p class="caption">Төрийн ордон, 2026 оны наймдугаар сар. Зураг: PIN</p>
+
+    <div class="block">
+      <div class="block-label">Юу болов</div>
+      <p>Намрын ээлжит чуулганаар хэлэлцэх хуулийн төслүүдийн жагсаалт батлагдаж, татварын багц шинэчлэл тэргүүн ээлжид орлоо. Төслийн гол агуулга:</p>
+      <ul>
+        <li>Жижиг, дунд бизнесийн орлогын албан татварын шатлалд өөрчлөлт орно.</li>
+        <li>Цахим үйлчилгээний орлогод шинэ зохицуулалт нэмэгдэнэ.</li>
+        <li>Хувь хүний орлогын албан татварын хөнгөлөлтийн хязгаар шинэчлэгдэнэ.</li>
+      </ul>
+    </div>
+
+    <div class="block view">
+      <div class="block-label">Яагаад чухал вэ</div>
+      <p>Энэ бол сүүлийн таван жилийн хамгийн өргөн хүрээтэй татварын өөрчлөлт. Жижиг бизнес эрхлэгчдийн хувьд татварын дарамт буурах боломжтой ч, цахим орлоготой иргэдэд шинэ тайлагналын үүрэг үүсэх магадлалтай.</p>
+    </div>
+
+    <div class="pull">
+      «Шинэчлэлийн зорилго нь татварын суурийг өргөжүүлэхэд бус, шударга байдлыг нэмэгдүүлэхэд чиглэж байгаа.»
+      <span>— Ажлын хэсгийн гишүүн, эдийн засагч</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Видео тайлбар</div>
+      <div class="inline-video">
+        <div class="play"></div>
+        <span class="duration">3:05</span>
+        <div class="iv-body">Татварын шинэчлэл — 3 минутад ойлгоё</div>
+      </div>
+      <p class="caption">PIN Видео · «Тайлбарлая» цуврал</p>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Цаашид юу болох вэ</div>
+      <p>Чуулган есдүгээр сарын эхээр эхэлнэ. Төслүүд хоёр хэлэлцүүлэг дамжих тул эцсийн хувилбар аравдугаар сард тодорхой болно. PIN энэ сэдвийг «пин» хэлбэрээр тогтмол шинэчилж мэдээлнэ — доорх товчоор дагаарай.</p>
+      <button class="btn accent" onclick="toast('Энэ сэдвийг пинлэлээ 📌 — шинэчлэл бүрд мэдэгдэнэ')">📌 Энэ сэдвийг дагах</button>
+    </div>
+
+    <div class="tags">
+      <a href="#">#татвар</a><a href="#">#чуулган</a><a href="#">#жижигбизнес</a><a href="#">#эдийнзасаг</a>
+    </div>
+  </main>
+
+  <!-- sidebar -->
+  <aside>
+    <div class="box">
+      <h3>Холбоотой пинүүд</h3>
+      <div class="rel"><span class="n">1</span><div><h5>Төв банк бодлогын хүүг хэвээр хадгалав</h5><span>Эдийн засаг · 2 мин</span></div></div>
+      <div class="rel"><span class="n">2</span><div><h5>Цахим үйлчилгээний хуулийн товч тайлбар</h5><span>Технологи · 3 мин</span></div></div>
+      <div class="rel"><span class="n">3</span><div><h5>ЖДБ-ийн зээлийн шинэ хөтөлбөр</h5><span>Бизнес · 2 мин</span></div></div>
+    </div>
+
+    <div class="box dark">
+      <h3>Өглөө бүр — имэйлээр 📬</h3>
+      <p>«Өнөөдрийн пин»-ийг 07:30-д шууд инбокс руугаа аваарай.</p>
+      <div class="nl-form">
+        <input type="email" placeholder="И-мэйл хаяг">
+        <button class="btn accent">Пинлэх</button>
+      </div>
+    </div>
+
+    <div>
+      <span class="ad-label">Сурталчилгаа</span>
+      <div class="ad-mpu">
+        <h4>Хас Банк — Дижитал зээл</h4>
+        <p>Хүсэлтээ 10 минутад илгээгээрэй.</p>
+        <button class="btn">Дэлгэрэнгүй</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span class="logo" style="font-size:20px">P<span style="color:var(--accent)">I</span>N<span style="color:var(--accent)">.</span></span>
+    <span>Өдрийн чухлыг хадлаа · © 2026</span>
+    <div class="foot-links"><a href="#">Бидний тухай</a><a href="#">Хамтран ажиллах</a><a href="#">Холбоо барих</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script>
+  function toast(msg){
+    var t=document.getElementById('toast');
+    t.textContent=msg;t.classList.add('show');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show');},1800);
+  }
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement;
+    var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    document.getElementById('bar').style.width=p+'%';
+  });
+</script>
+</body>
+</html>
