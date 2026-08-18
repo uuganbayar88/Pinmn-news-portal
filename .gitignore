@@ -40,4 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Claude Code local settings
+.claude/
+
+# SDD workspace
 .superpowers/
