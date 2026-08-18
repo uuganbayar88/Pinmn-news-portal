@@ -1,0 +1,9 @@
+.daysbar{display:flex;gap:8px;margin:20px 0 0;flex-wrap:wrap;align-items:center;}
+.daychip{
+  font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.08em;
+  border:1.5px solid var(--line);border-radius:100px;padding:7px 15px;color:var(--soft);
+  cursor:pointer;transition:all .2s;background:none;text-transform:uppercase;
+}
+.daychip:hover{border-color:var(--ink);color:var(--ink);}
+.daychip.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.daychip.arch{border-style:dashed;}

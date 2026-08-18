@@ -1,0 +1,26 @@
+"use client";
+
+import styles from "./TodayBar.module.css";
+import Reveal from "@/components/ui/Reveal";
+import { useUi } from "@/components/ui/UiProvider";
+import type { DailyDigest } from "@/lib/content/types";
+
+export default function TodayBar({ digest }: { digest: DailyDigest }) {
+  const { playAudio } = useUi();
+  return (
+    <Reveal className={styles.todaybar}>
+      <div className={styles.tbl}>
+        <h1 className={styles.tbk}><span className={styles.bdot} />Өнөөдрийн пин</h1>
+        <span className={styles.tbt}>— мэдэхэд хангалттай.</span>
+      </div>
+      <div className={styles.tbr}>
+        <button className={styles.listen} onClick={() => playAudio("Өнөөдрийн пин — бүтэн дугаар", "7:00")}>
+          <span className={styles.lp} />Дугаарыг сонсох · 7:00
+        </button>
+        <span className={styles.tbm}>
+          <b>{digest.storyCount}</b> мэдээ · <b>{digest.totalMinutes}</b> минут · {digest.updatedAtLabel}
+        </span>
+      </div>
+    </Reveal>
+  );
+}
