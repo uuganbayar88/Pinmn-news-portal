@@ -1,21 +1,26 @@
 .articleRoot {
+  background: #FAF8F5;
+}
+
+/* progress bar */
+.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; z-index: 60; transition: width .1s linear; }
+
+/* article-content container: owns the mockup's local palette/font so it doesn't
+   leak into the sibling Header/Footer/TabBar, which keep the global brand tokens */
+.articleGrid {
   --ink: #141414;
   --ink-soft: #555;
   --paper: #FAF8F5;
   --card: #FFFFFF;
   --line: #E7E2DB;
   --radius: 14px;
-  background: #FAF8F5;
   color: #141414;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  display: grid; grid-template-columns: 56px 1fr 320px; gap: 34px;
+  max-width: 1080px; margin: 0 auto; padding: 40px 20px 60px;
 }
-
-/* progress bar */
-.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; z-index: 60; transition: width .1s linear; }
-
-.articleGrid { display: grid; grid-template-columns: 56px 1fr 320px; gap: 34px; padding: 40px 0 60px; }
 @media (max-width: 980px) { .articleGrid { grid-template-columns: 1fr; } .shareRail { display: none; } }
 
 /* ---------- share rail ---------- */

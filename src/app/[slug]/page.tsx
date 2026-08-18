@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import styles from "./article.module.css";
-import { getAllArticles, getArticle } from "@/lib/content/accessors";
+import { getAllArticles, getArticle, getDigest } from "@/lib/content/accessors";
 import { buildArticleMetadata, buildNewsArticleJsonLd } from "@/lib/metadata";
 import ProgressBar from "@/components/article/ProgressBar";
 import ShareRail from "@/components/article/ShareRail";
@@ -32,16 +32,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
+  const digest = getDigest();
 
   return (
     <div className={styles.articleRoot}>
       <ProgressBar />
-      <Header dateLabel="08.07 · ПҮРЭВ" />
+      <Header dateLabel={`${digest.dateLabel} · ${digest.weekdayLabel}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildNewsArticleJsonLd(article)) }}
       />
-      <div className={`wrap ${styles.articleGrid}`}>
+      <div className={styles.articleGrid}>
         <ShareRail />
         <main>
           <div className={styles.crumb}>Нүүр / {article.category.name} / <b>Онцлох</b></div>
@@ -57,7 +58,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {article.listenDuration && <button className={styles.listenBtn}>🎧 Сонсох · {article.listenDuration}</button>}
           </div>
           <div className={styles.heroImg} />
-          <p className={styles.caption}>Төрийн ордон, 2026 оны наймдугаар сар. Зураг: PIN</p>
+          {article.heroCaption && <p className={styles.caption}>{article.heroCaption}</p>}
           <ArticleBody article={article} />
         </main>
         <ArticleSidebar />

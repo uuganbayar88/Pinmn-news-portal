@@ -29,6 +29,7 @@ export interface Article {
   socialTitle?: string;      // ≤60 chars (architecture doc §4.5)
   socialDescription?: string; // ≤110 chars
   lead: string;
+  heroCaption?: string;
   whyItMatters: string;
   keyPoints: string[];        // 2–4 items, ≤110 chars each (doc §4.4)
   body: BodyBlock[];
