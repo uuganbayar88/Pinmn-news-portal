@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Spectral, Playfair_Display, Golos_Text } from "next/font/google";
 import "./globals.css";
+import UiProvider from "@/components/ui/UiProvider";
 
 const disp = Inter_Tight({ subsets: ["latin", "cyrillic"], weight: ["500", "700", "900"], variable: "--font-disp" });
 const serif = Spectral({ subsets: ["latin", "cyrillic"], weight: ["600", "700", "800"], variable: "--font-serif" });
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="mn">
       <body className={`${disp.variable} ${serif.variable} ${ital.variable} ${sans.variable}`}>
-        {children}
+        <UiProvider>{children}</UiProvider>
       </body>
     </html>
   );

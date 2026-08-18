@@ -1,0 +1,12 @@
+.tabbar{display:none;}
+@media(max-width:700px){
+  .tabbar{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:95;
+    background:rgba(247,243,235,.97);backdrop-filter:blur(12px);
+    border-top:1.5px solid var(--ink);
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+  }
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;color:#A79C8E;}
+  .tabbar .active{color:var(--accent);}
+  .tabbar .ico{font-size:18px;line-height:1;}
+}

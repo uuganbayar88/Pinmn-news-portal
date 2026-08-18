@@ -1,0 +1,25 @@
+.header{
+  position:sticky;top:0;z-index:90;background:rgba(247,243,235,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.head{display:flex;align-items:center;height:72px;gap:34px;}
+.logo{font-family:var(--disp);font-weight:900;font-size:26px;letter-spacing:-.02em;display:flex;align-items:baseline;}
+.logo .bang{color:var(--accent);margin:0 1px;}
+.logo .dot{color:var(--accent);}
+.main{display:flex;gap:26px;margin:0 auto;}
+.main a{font-size:14px;font-weight:600;color:var(--soft);transition:color .2s;position:relative;}
+.main a:hover{color:var(--ink);}
+.main .active{color:var(--accent);}
+.main .active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--accent);}
+.headRight{display:flex;align-items:center;gap:18px;}
+.datechip{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--soft);}
+.burger{
+  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);
+  background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:14px;transition:background .2s, color .2s;
+}
+.burger:hover{background:var(--ink);color:var(--paper);}
+@media(max-width:700px){
+  .main,.datechip{display:none;}
+  .head{height:60px;}
+}

@@ -1,0 +1,8 @@
+.footer{background:var(--ink);color:var(--paper);padding:54px 0;}
+.froot{display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
+.logo{font-family:var(--disp);font-weight:900;letter-spacing:-.02em;}
+.froot .logo{font-size:22px;}
+.froot .tag{font-family:var(--serif);font-style:italic;color:#8B8174;font-size:14.5px;}
+.froot .soc{margin-left:auto;display:flex;gap:22px;font-size:13px;font-weight:600;color:#B8AFA2;}
+.froot .soc a:hover{color:var(--paper);}
+.bang{color:var(--accent);}
