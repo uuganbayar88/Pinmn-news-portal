@@ -13,7 +13,7 @@ export default function Header({ dateLabel }: { dateLabel: string }) {
           P<span className={styles.bang}>!</span>N<span className={styles.dot}>.</span>
         </Link>
         <nav className={styles.main}>
-          <a className={styles.active} href="/">Өнөөдөр</a>
+          <Link className={styles.active} href="/">Өнөөдөр</Link>
           <a href="#" onClick={(e) => { e.preventDefault(); toast("Тайлбар хуудас (демо)"); }}>Тайлбар</a>
           <a href="#video">Видео</a>
           <a href="#" onClick={(e) => { e.preventDefault(); toast("Үйл явдал хуудас (демо)"); }}>Үйл явдал</a>

@@ -17,7 +17,6 @@ import {
 
 export default function Home() {
   const digest = getDigest();
-  let num = 0;
 
   return (
     <>
@@ -34,8 +33,8 @@ export default function Home() {
         <DayChips chips={getDigestDayChips()} />
         <div className={styles.grid}>
           <main>
-            {digest.pins.map((pin) => {
-              if (!pin.article.sponsored) num += 1;
+            {digest.pins.map((pin, i) => {
+              const num = digest.pins.slice(0, i + 1).filter((p) => !p.article.sponsored).length;
               return <PinCard key={pin.article.slug} pin={pin} num={String(num).padStart(2, "0")} />;
             })}
           </main>

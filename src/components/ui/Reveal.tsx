@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
 export default function Reveal({
   as = "div",
@@ -37,5 +37,10 @@ export default function Reveal({
   const cls = ["rv", delay ? `d${delay}` : "", inView ? "in" : "", className]
     .filter(Boolean)
     .join(" ");
-  return createElement(as, { ref, className: cls }, children);
+  const Tag = as as ElementType;
+  return (
+    <Tag ref={ref} className={cls}>
+      {children}
+    </Tag>
+  );
 }
