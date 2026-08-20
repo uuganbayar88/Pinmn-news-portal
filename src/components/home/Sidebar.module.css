@@ -31,7 +31,11 @@
 .evrow .d small{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--soft);}
 .evrow h6{font-size:14px;font-weight:700;line-height:1.35;}
 .evrow span{font-size:12px;color:var(--soft);}
-.toprow{display:flex;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px;font-weight:600;line-height:1.4;cursor:pointer;}
+.toprow{
+  display:flex;gap:16px;width:100%;padding:13px 0;border:none;border-bottom:1px solid var(--line);
+  background:none;font:inherit;text-align:left;color:inherit;
+  font-size:14px;font-weight:600;line-height:1.4;cursor:pointer;
+}
 .toprow:last-child{border-bottom:none;}
 .toprow em{font-family:var(--serif);font-style:normal;font-weight:600;color:var(--accent);min-width:26px;}
 .toprow:hover{color:var(--accent);}
@@ -43,4 +47,7 @@
 .adcard .lbl{font-family:var(--disp);font-size:9.5px;letter-spacing:.22em;color:var(--gold);font-weight:700;text-transform:uppercase;}
 .adcard h4{font-family:var(--serif);font-weight:700;font-size:18px;margin:8px 0 6px;line-height:1.3;}
 .adcard p{font-size:13px;color:var(--soft);}
-.adcard a{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:700;color:var(--accent);border-bottom:1.5px solid var(--accent);}
+.adcard a,.adcard .more{
+  display:inline-block;margin-top:14px;background:none;border:none;border-bottom:1.5px solid var(--accent);
+  padding:0;font:inherit;font-size:12.5px;font-weight:700;color:var(--accent);cursor:pointer;
+}

@@ -36,7 +36,7 @@ export default function Quiz() {
         <p>Долоо хоногийн пинүүдээс автоматаар үүсдэг 5 асуулт. Баасан бүр шинэчлэгдэнэ — оноогоо картаар хуваалцаж, найзаа сориорой.</p>
         <div className={styles.qmeta}>
           <span>5 асуулт</span><span>·</span><span>2 минут</span><span>·</span>
-          <span className={styles.qshare} onClick={() => toast("Оноонд зориулсан карт үүслээ (демо) 🎯")}>Оноогоо хуваалцах →</span>
+          <button className={styles.qshare} onClick={() => toast("Оноонд зориулсан карт үүслээ (демо) 🎯")}>Оноогоо хуваалцах →</button>
         </div>
       </div>
       <div className={styles.qcard}>

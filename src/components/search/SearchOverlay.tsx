@@ -84,11 +84,11 @@ export default function SearchOverlay({
         <div className={styles.sres}>
           {results.length ? (
             results.map((r) => (
-              <div key={`${r.title}${r.date}`} className={styles.srrow} onClick={() => toast("Мэдээ рүү (демо)")}>
+              <button key={`${r.title}${r.date}`} className={styles.srrow} onClick={() => toast("Мэдээ рүү (демо)")}>
                 <span className={styles.src}>{r.category}</span>
                 <span className={styles.srt}>{r.title}</span>
                 <span className={styles.srd}>{r.date}</span>
-              </div>
+              </button>
             ))
           ) : (
             <div className={styles.snone}>«{query.trim()}» — илэрц олдсонгүй. Өөр түлхүүр үг туршаад үзээрэй.</div>

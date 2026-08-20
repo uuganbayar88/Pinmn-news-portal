@@ -15,9 +15,9 @@ export default function Header({ dateLabel }: { dateLabel: string }) {
         <nav className={styles.main}>
           <Link className={styles.active} href="/">Өнөөдөр</Link>
           <a href="#" onClick={(e) => { e.preventDefault(); toast("Тайлбар хуудас (демо)"); }}>Тайлбар</a>
-          <a href="#video">Видео</a>
+          <Link href="/#video">Видео</Link>
           <a href="#" onClick={(e) => { e.preventDefault(); toast("Үйл явдал хуудас (демо)"); }}>Үйл явдал</a>
-          <a href="#manif">Бидний тухай</a>
+          <Link href="/#manif">Бидний тухай</Link>
         </nav>
         <div className={styles.headRight}>
           <span className={styles.datechip}>{dateLabel}</span>

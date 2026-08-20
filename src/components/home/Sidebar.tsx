@@ -14,7 +14,7 @@ export default function Sidebar({ events, mostPinned }: { events: EventItem[]; m
         <h4>Инбокс руугаа пиндээрэй</h4>
         <p>Өдрийн хамгийн чухал мэдээ — имэйлээр, 7 минутад.</p>
         <div className={styles.nlform}>
-          <input type="email" placeholder="И-мэйл хаяг" />
+          <input type="email" placeholder="И-мэйл хаяг" aria-label="И-мэйл хаяг" />
           <button onClick={() => toast("Баярлалаа! Маргааш 07:30-д уулзъя 📬")}>ПИНЛЭХ →</button>
         </div>
         <div className={styles.fine}>Спамгүй. Хэзээ ч цуцалж болно.</div>
@@ -33,9 +33,9 @@ export default function Sidebar({ events, mostPinned }: { events: EventItem[]; m
       <Reveal className={styles.sidesec}>
         <div className={styles.shead}><h5>Их пинлэгдсэн</h5><span>🔥</span></div>
         {mostPinned.map((t, i) => (
-          <div key={t} className={styles.toprow} onClick={() => toast("Мэдээ рүү (демо)")}>
+          <button key={t} className={styles.toprow} onClick={() => toast("Мэдээ рүү (демо)")}>
             <em>{String(i + 1).padStart(2, "0")}</em>{t}
-          </div>
+          </button>
         ))}
       </Reveal>
 
@@ -45,7 +45,7 @@ export default function Sidebar({ events, mostPinned }: { events: EventItem[]; m
           <span className={styles.lbl}>Хас Банк</span>
           <h4>Дижитал зээл — 10 минутад шийдвэр</h4>
           <p>Апп-аар хүсэлтээ илгээгээд, хариугаа шууд аваарай.</p>
-          <a href="#" onClick={(e) => { e.preventDefault(); toast("Спонсорын хуудас (демо)"); }}>Дэлгэрэнгүй</a>
+          <button className={styles.more} onClick={() => toast("Спонсорын хуудас (демо)")}>Дэлгэрэнгүй</button>
         </div>
       </Reveal>
     </aside>

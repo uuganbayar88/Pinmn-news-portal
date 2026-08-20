@@ -28,7 +28,8 @@
 .sres{margin-top:34px;}
 .srrow{
   display:grid;grid-template-columns:120px 1fr 56px;gap:18px;align-items:baseline;
-  padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer;
+  width:100%;padding:16px 0;border:none;border-bottom:1px solid var(--line);
+  background:none;font:inherit;text-align:left;cursor:pointer;
 }
 .srrow:hover .srt{color:var(--accent);}
 .srrow .src{font-family:var(--disp);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);}

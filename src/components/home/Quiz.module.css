@@ -8,7 +8,7 @@
 .quiz h3{font-family:var(--serif);font-size:clamp(26px,3vw,36px);font-weight:700;line-height:1.15;margin:14px 0 12px;}
 .quiz p{color:#B8AFA2;font-size:15px;max-width:430px;font-family:var(--serif);line-height:1.55;}
 .qmeta{display:flex;gap:12px;margin-top:20px;font-size:13px;font-weight:700;color:#B8AFA2;flex-wrap:wrap;}
-.qmeta .qshare{color:var(--gold);cursor:pointer;transition:color .2s;}
+.qmeta .qshare{background:none;border:none;padding:0;font:inherit;color:var(--gold);cursor:pointer;transition:color .2s;}
 .qmeta .qshare:hover{color:var(--paper);}
 .qcard{background:rgba(247,243,235,.05);border:1px solid #35302A;border-radius:8px;padding:28px 26px;}
 .qcard .qnum{font-family:var(--disp);font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}

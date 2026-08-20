@@ -22,7 +22,10 @@
   text-transform:uppercase;color:var(--ink);margin-right:6px;
 }
 .pin .pmeta{margin-top:14px;display:flex;align-items:center;gap:20px;font-size:12.5px;font-weight:600;color:#A79C8E;}
-.pin .pmeta .save{color:var(--accent);font-weight:700;cursor:pointer;letter-spacing:.06em;}
+.pin .pmeta .save{
+  background:none;border:none;padding:0;font:inherit;color:var(--accent);
+  font-weight:700;cursor:pointer;letter-spacing:.06em;
+}
 .pin.lead h4{font-size:clamp(28px,2.8vw,38px);max-width:660px;}
 .pin.lead .num{font-size:30px;}
 .pin .bullets{list-style:none;margin:14px 0 0;max-width:590px;}

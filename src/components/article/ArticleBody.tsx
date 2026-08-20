@@ -32,11 +32,11 @@ function Block({ block, toast }: { block: BodyBlock; toast: (m: string) => void 
       return (
         <div className={styles.block}>
           <div className={styles.blockLabel}>{block.label}</div>
-          <div className={styles.inlineVideo} onClick={() => toast("Видео тоглуулна (демо)")}>
+          <button className={styles.inlineVideo} onClick={() => toast("Видео тоглуулна (демо)")}>
             <div className={styles.play} />
             <span className={styles.duration}>{block.duration}</span>
             <div className={styles.ivBody}>{block.title}</div>
-          </div>
+          </button>
           <p className={styles.caption}>{block.caption}</p>
         </div>
       );

@@ -72,11 +72,11 @@ export default function VideoBand({ videos }: { videos: VideoItem[] }) {
               delay={v.delay}
               className={`${styles.vcard} ${v.size === "big" ? styles.big : ""}`}
             >
-              <div className={styles.art} onClick={() => toast("Видео тоглуулна (демо)")}>
+              <button className={styles.art} onClick={() => toast("Видео тоглуулна (демо)")}>
                 <Palette n={v.palette} />
                 <div className={`${styles.vplay} ${v.size === "small" ? styles.sm : ""}`} />
                 <span className={styles.vdur}>{v.duration}</span>
-              </div>
+              </button>
               <div className={styles.vinfo}>
                 <div className={styles.vcat}>{v.category}</div>
                 <h4>{v.title}</h4>

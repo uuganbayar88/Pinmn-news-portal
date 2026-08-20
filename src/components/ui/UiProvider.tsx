@@ -92,7 +92,7 @@ export default function UiProvider({ children }: { children: ReactNode }) {
       {children}
       <AudioPlayerBar state={audio} onToggle={togglePlay} onClose={closePlayer} />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} onOpen={openSearch} toast={toast} />
-      <div className={`${toastStyles.toast} ${toastMsg ? toastStyles.show : ""}`}>{toastMsg}</div>
+      <div role="status" aria-live="polite" className={`${toastStyles.toast} ${toastMsg ? toastStyles.show : ""}`}>{toastMsg}</div>
     </UiContext.Provider>
   );
 }
