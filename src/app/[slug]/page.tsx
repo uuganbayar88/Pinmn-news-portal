@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "./article.module.css";
 import { getAllArticles, getArticle, getDigest, getRelatedPins } from "@/lib/content/accessors";
@@ -53,8 +54,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
             {article.listenDuration && <ListenButton title={article.title} duration={article.listenDuration} />}
           </div>
-          <div className={styles.heroImg} />
-          {article.heroCaption && <p className={styles.caption}>{article.heroCaption}</p>}
+          <div className={styles.heroImg}>
+            {article.image && (
+              <Image
+                src={article.image.src}
+                alt={article.image.alt}
+                fill
+                sizes="(max-width: 980px) 100vw, 704px"
+                className={styles.heroPhoto}
+                priority
+              />
+            )}
+          </div>
+          {(article.heroCaption || article.image) && (
+            <p className={styles.caption}>
+              {[article.heroCaption, article.image ? `Зураг: ${article.image.credit}` : null]
+                .filter(Boolean)
+                .join(" ")}
+            </p>
+          )}
           <ArticleBody article={article} />
         </main>
         <ArticleSidebar relatedPins={getRelatedPins()} />

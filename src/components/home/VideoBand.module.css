@@ -23,6 +23,12 @@
 .vcard:hover .vplay{background:var(--accent);border-color:var(--accent);transform:translate(-50%,-50%) scale(1.1);}
 .vplay.sm{width:46px;height:46px;}
 .vplay.sm::after{border-left-width:12px;border-top-width:7px;border-bottom-width:7px;}
+.photo{object-fit:cover;filter:sepia(.14) saturate(.9) contrast(1.04) brightness(.92);transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+.art:hover .photo{transform:scale(1.05);}
+.photoTint{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg, rgba(22,19,15,.06), rgba(22,19,15,0) 40%, rgba(22,19,15,.45) 100%);
+}
 .vdur{
   position:absolute;top:14px;right:14px;z-index:2;background:rgba(22,19,15,.8);
   font-size:11px;font-weight:700;padding:4px 10px;border-radius:2px;letter-spacing:.06em;

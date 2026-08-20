@@ -1,5 +1,5 @@
 import type { DailyDigest, EventItem, SearchEntry, VideoItem } from "../types";
-import { articles } from "./articles";
+import { articles, photos } from "./articles";
 
 const bySlug = (slug: string) => {
   const a = articles.find((x) => x.slug === slug);
@@ -55,11 +55,11 @@ export const mostPinned = [
 ];
 
 export const videos: VideoItem[] = [
-  { id: "v1", title: "«Монголын эдийн засгийн дараагийн 5 жил»", category: "Ярилцлага", duration: "12:40", meta: "Эдийн засагч зочинтой · 24К үзэлт · Өчигдөр", size: "big", palette: 0, delay: 0 },
-  { id: "v2", title: "Татварын шинэчлэл — 3 минутад", category: "Тайлбарлая", duration: "3:05", meta: "18К үзэлт", size: "small", palette: 1, delay: 1 },
-  { id: "v3", title: "Метроны талбайд: явц ямар байна?", category: "Репортаж", duration: "6:22", meta: "31К үзэлт", size: "small", palette: 2, delay: 1 },
-  { id: "v4", title: "Өнөөдрийн пин — 90 секундэд", category: "Shorts", duration: "1:48", meta: "Өдөр бүр", size: "small", palette: 3, delay: 2 },
-  { id: "v5", title: "Шинэ автобусаар нэг өдөр", category: "Хотын амьдрал", duration: "8:15", meta: "9К үзэлт", size: "small", palette: 4, delay: 2 },
+  { id: "v1", image: photos.downtown,  title: "«Монголын эдийн засгийн дараагийн 5 жил»", category: "Ярилцлага", duration: "12:40", meta: "Эдийн засагч зочинтой · 24К үзэлт · Өчигдөр", size: "big", palette: 0, delay: 0 },
+  { id: "v2", image: photos.palace,  title: "Татварын шинэчлэл — 3 минутад", category: "Тайлбарлая", duration: "3:05", meta: "18К үзэлт", size: "small", palette: 1, delay: 1 },
+  { id: "v3", image: photos.constr,  title: "Метроны талбайд: явц ямар байна?", category: "Репортаж", duration: "6:22", meta: "31К үзэлт", size: "small", palette: 2, delay: 1 },
+  { id: "v4", image: photos.traffic,  title: "Өнөөдрийн пин — 90 секундэд", category: "Shorts", duration: "1:48", meta: "Өдөр бүр", size: "small", palette: 3, delay: 2 },
+  { id: "v5", image: photos.bus,  title: "Шинэ автобусаар нэг өдөр", category: "Хотын амьдрал", duration: "8:15", meta: "9К үзэлт", size: "small", palette: 4, delay: 2 },
 ];
 
 export const searchIndex: SearchEntry[] = [

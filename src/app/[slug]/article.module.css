@@ -50,7 +50,8 @@
   border: 1px solid var(--line); border-radius: 100px; padding: 8px 14px; background: #fff;
 }
 
-.heroImg {
+.heroPhoto { object-fit: cover; filter: sepia(.1) saturate(.94) contrast(1.02); }
+.heroImg { position: relative; overflow: hidden;
   border-radius: 16px; height: 340px; margin-bottom: 8px; position: relative; overflow: hidden;
   background: radial-gradient(120% 90% at 85% 10%, rgba(232, 68, 46, .5), transparent 60%), linear-gradient(160deg, #2b3a67, #101528);
 }

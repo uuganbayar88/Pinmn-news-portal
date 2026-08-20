@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./FeatureCard.module.css";
 import Reveal from "@/components/ui/Reveal";
@@ -12,7 +13,20 @@ export default function FeatureCard({ article }: { article: ArticleCard }) {
     <Reveal className={styles.outer}>
       <Link href={`/${article.slug}`} className={styles.feature}>
         <div className={styles.featArt}>
-          {/* v6 composition with depth: gradient towers, sunset glow, lit windows, film grain */}
+          {article.image ? (
+            <>
+              <Image
+                src={article.image.src}
+                alt={article.image.alt}
+                fill
+                sizes="(max-width: 880px) 100vw, 55vw"
+                className={styles.photo}
+                priority
+              />
+              <div className={styles.photoTint} />
+            </>
+          ) : (
+          /* v6 composition with depth: gradient towers, sunset glow, lit windows, film grain */
           <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
             <defs>
               <linearGradient id="fc-sky" x1="0" y1="0" x2="0" y2="1">
@@ -54,6 +68,7 @@ export default function FeatureCard({ article }: { article: ArticleCard }) {
             </g>
             <rect width="600" height="420" fill="#000" filter="url(#fc-grain)" opacity=".22" />
           </svg>
+          )}
           {article.videoChip && (
             <button
               className={styles.featVidchip}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./VideoBand.module.css";
 import Reveal from "@/components/ui/Reveal";
 import SectionBar from "./SectionBar";
@@ -146,7 +147,20 @@ export default function VideoBand({ videos }: { videos: VideoItem[] }) {
               className={`${styles.vcard} ${v.size === "big" ? styles.big : ""}`}
             >
               <button className={styles.art} onClick={() => toast("Видео тоглуулна (демо)")}>
-                <Palette n={v.palette} />
+                {v.image ? (
+                  <>
+                    <Image
+                      src={v.image.src}
+                      alt={v.image.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+                      className={styles.photo}
+                    />
+                    <div className={styles.photoTint} />
+                  </>
+                ) : (
+                  <Palette n={v.palette} />
+                )}
                 <div className={`${styles.vplay} ${v.size === "small" ? styles.sm : ""}`} />
                 <span className={styles.vdur}>{v.duration}</span>
               </button>

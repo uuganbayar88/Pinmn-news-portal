@@ -16,6 +16,12 @@ export interface SponsoredMeta {
   disclosure: string;
 }
 
+export interface Photo {
+  src: string;    // path under /public
+  alt: string;
+  credit: string; // photographer + license, rendered in captions
+}
+
 export type BodyBlock =
   | { type: "whatHappened"; label: string; paragraphs: string[]; bullets?: string[] }
   | { type: "whyItMatters"; label: string; paragraphs: string[] }
@@ -32,6 +38,7 @@ export interface Article {
   dek?: string;                // feature card standfirst line
   videoChip?: { label: string; duration: string }; // feature card video overlay
   heroCaption?: string;
+  image?: Photo;
   whyItMatters: string;
   keyPoints: string[];        // 2–4 items, ≤110 chars each (doc §4.4)
   body: BodyBlock[];
@@ -86,6 +93,7 @@ export interface VideoItem {
   meta: string;
   size: "big" | "small";
   palette: 0 | 1 | 2 | 3 | 4;
+  image?: Photo;
   delay: 0 | 1 | 2;
 }
 
