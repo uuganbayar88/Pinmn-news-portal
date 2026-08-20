@@ -1,0 +1,45 @@
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.halo {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, rgba(232, 168, 124, .42), rgba(232, 68, 46, .12) 55%, transparent 72%);
+  filter: blur(2px);
+}
+
+.fallback {
+  position: relative;
+  filter: drop-shadow(0 22px 20px var(--wshadow));
+  animation: sway 6s ease-in-out infinite alternate;
+  transition: opacity .5s;
+}
+
+.fallback.hidden {
+  opacity: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes sway {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fallback { animation: none; }
+}
+
+@media (max-width: 760px) {
+  .stage { min-height: 220px; }
+}

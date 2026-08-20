@@ -1,5 +1,6 @@
 import styles from "./Manifesto.module.css";
 import Reveal from "@/components/ui/Reveal";
+import PinStage from "./PinStage";
 
 const VALS = [
   { n: "01", h: "Сонгоно", p: "Өдөрт заавал мэдэх цөөхөн сэдэв." },
@@ -11,10 +12,15 @@ export default function Manifesto() {
   return (
     <section className={styles.manif} id="manif">
       <div className="wrap">
-        <Reveal className={styles.k}>PIN гэж юу вэ?</Reveal>
-        <Reveal as="h2" delay={1} className={styles.h2}>
-          Илүү их мэдээ биш.<br /><span className={styles.ital}>Илүү их ойлголт.</span>
-        </Reveal>
+        <div className={styles.top}>
+          <div>
+            <Reveal className={styles.k}>PIN гэж юу вэ?</Reveal>
+            <Reveal as="h2" delay={1} className={styles.h2}>
+              Илүү их мэдээ биш.<br /><span className={styles.ital}>Илүү их ойлголт.</span>
+            </Reveal>
+          </div>
+          <PinStage />
+        </div>
         <Reveal delay={2} className={styles.vals}>
           {VALS.map((v) => (
             <div key={v.n} className={styles.val}>

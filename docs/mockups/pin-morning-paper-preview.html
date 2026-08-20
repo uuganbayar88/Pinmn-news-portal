@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIN — Morning Paper preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800;900&family=Playfair+Display:ital,wght@1,600;1,700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFE2;
+    --paper-deep:#EFE5D2;
+    --ink:#1D1712;
+    --ink-soft:#5C4F41;
+    --clay:#D8481F;
+    --clay-deep:#A93415;
+    --gold:#C09427;
+    --line:#DCCFB8;
+    --shadow:rgba(61,37,17,.16);
+    --disp:"Inter Tight",sans-serif;
+    --serif:"Spectral",Georgia,serif;
+    --ital:"Playfair Display",Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--serif);background:var(--paper);color:var(--ink);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+
+  /* ---- paper grain over everything ---- */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:999;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:.07;mix-blend-mode:multiply;
+  }
+
+  /* ---- preview banner ---- */
+  .previewbar{
+    background:var(--ink);color:var(--paper);text-align:center;
+    font-family:var(--disp);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    padding:8px 16px;
+  }
+  .previewbar b{color:#E8B34B;}
+
+  /* ---- header ---- */
+  header{
+    position:sticky;top:0;z-index:90;background:rgba(246,239,226,.92);
+    backdrop-filter:blur(8px);border-bottom:2px solid var(--ink);
+  }
+  .head{display:flex;align-items:center;height:70px;gap:30px;}
+  .logo{font-family:var(--disp);font-weight:900;font-size:27px;letter-spacing:-.02em;}
+  .logo .bang{color:var(--clay);}
+  nav.main{display:flex;gap:24px;margin:0 auto;}
+  nav.main a{
+    font-family:var(--serif);font-size:15px;font-weight:600;color:var(--ink-soft);
+    position:relative;transition:color .2s;
+  }
+  nav.main a:hover{color:var(--ink);}
+  nav.main a.active{color:var(--ink);}
+  nav.main a.active::after{
+    content:"";position:absolute;left:-2px;right:-2px;bottom:-6px;height:6px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5 Q 25 2 50 4.5 T 99 3.5' stroke='%23D8481F' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+  }
+  .datestamp{
+    font-family:var(--disp);font-weight:800;font-size:10.5px;letter-spacing:.12em;
+    border:1.8px solid var(--clay);color:var(--clay);border-radius:3px;
+    padding:6px 10px;transform:rotate(-2deg);text-transform:uppercase;
+  }
+
+  /* ---- hero ---- */
+  .hero{position:relative;padding:64px 0 56px;overflow:hidden;}
+  /* CSS stand-in for the Three.js morning-light ambience */
+  .hero::before{
+    content:"";position:absolute;inset:-20%;z-index:0;
+    background:
+      radial-gradient(42% 55% at 78% 18%, rgba(232,179,75,.32), transparent 70%),
+      radial-gradient(35% 45% at 12% 80%, rgba(216,72,31,.10), transparent 70%);
+    animation:drift 14s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    from{transform:translate3d(-1.5%,0,0) scale(1);}
+    to{transform:translate3d(2%,1.5%,0) scale(1.06);}
+  }
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:880px){.hero .wrap{grid-template-columns:1fr;}}
+  .kick{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--disp);font-weight:800;font-size:11px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:20px;
+  }
+  .kick::before{content:"";width:26px;height:2.5px;background:var(--clay);border-radius:2px;}
+  h1.mast{
+    font-family:var(--serif);font-weight:800;font-size:clamp(40px,5.6vw,66px);
+    line-height:1.04;letter-spacing:-.02em;
+  }
+  h1.mast .ital{font-family:var(--ital);font-style:italic;font-weight:700;color:var(--clay);}
+  .hero p.lede{
+    font-size:19px;color:var(--ink-soft);max-width:430px;margin-top:22px;line-height:1.55;
+  }
+  .hero-ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;align-items:center;}
+  .btn-press{
+    font-family:var(--disp);font-weight:800;font-size:13px;letter-spacing:.08em;
+    background:var(--clay);color:#FFF6E8;border:none;cursor:pointer;
+    padding:14px 26px;border-radius:4px;
+    box-shadow:0 3px 0 var(--clay-deep), 0 10px 22px -8px var(--shadow);
+    transition:transform .12s, box-shadow .12s;
+  }
+  .btn-press:hover{transform:translateY(1px);box-shadow:0 2px 0 var(--clay-deep), 0 6px 14px -6px var(--shadow);}
+  .btn-press:active{transform:translateY(3px);box-shadow:0 0 0 var(--clay-deep);}
+  .hero .listen{
+    font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);
+    border-bottom:2px solid var(--clay);padding-bottom:2px;cursor:pointer;
+  }
+
+  /* 3D pin placeholder (the real thing is a Three.js brass+wax pin) */
+  .pinstage{position:relative;display:flex;align-items:center;justify-content:center;min-height:320px;}
+  .pinstage .halo{
+    position:absolute;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, rgba(232,179,75,.4), rgba(216,72,31,.12) 55%, transparent 72%);
+    filter:blur(2px);
+  }
+  .pinstage svg{position:relative;filter:drop-shadow(0 24px 22px rgba(61,37,17,.28));animation:sway 6s ease-in-out infinite alternate;}
+  @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(3deg)}}
+  .pinstage .note{
+    position:absolute;bottom:6px;font-family:var(--disp);font-size:10px;font-weight:800;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);opacity:.75;
+  }
+
+  /* ---- section head with ink underline ---- */
+  .sechead{margin:70px 0 8px;}
+  .sechead h3{
+    display:inline-block;font-family:var(--disp);font-weight:900;font-size:22px;
+    letter-spacing:-.01em;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 7 Q 50 3 100 6 T 198 5' stroke='%23D8481F' stroke-width='3.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left bottom/100% 8px;
+    padding-bottom:10px;
+  }
+  .sechead .meta{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:14.5px;margin-left:16px;}
+
+  /* ---- pins ---- */
+  .pin{
+    position:relative;display:grid;grid-template-columns:72px 1fr;gap:18px;
+    padding:34px 0 30px;border-bottom:1.5px solid var(--line);
+  }
+  .sticker{
+    width:46px;height:46px;border-radius:8px;background:var(--clay);color:#FFF6E8;
+    font-family:var(--disp);font-weight:900;font-size:19px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 10px -2px var(--shadow), inset 0 -2px 0 rgba(0,0,0,.18);
+    transform:rotate(-2.2deg);
+  }
+  .pin:nth-child(2) .sticker{transform:rotate(1.4deg);}
+  .pin:nth-child(3) .sticker{transform:rotate(-.8deg);}
+  .pin .cat{
+    font-family:var(--disp);font-weight:800;font-size:10.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:8px;
+  }
+  .pin h4{
+    font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.3vw,30px);
+    line-height:1.18;letter-spacing:-.01em;max-width:640px;transition:color .2s;
+  }
+  .pin:hover h4{color:var(--clay-deep);}
+  .pin .why{font-size:15.5px;color:var(--ink-soft);max-width:600px;margin-top:10px;}
+  .pin .why b{font-family:var(--disp);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-right:8px;}
+  .pin .pmeta{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-soft);display:flex;gap:18px;align-items:center;}
+  .pin .save{
+    font-style:normal;font-family:var(--disp);font-weight:800;font-size:11px;letter-spacing:.1em;
+    color:var(--clay);cursor:pointer;border-bottom:1.5px solid transparent;transition:border-color .15s;
+  }
+  .pin .save:hover{border-color:var(--clay);}
+  .pin.lead{grid-template-columns:72px 1fr;background:linear-gradient(90deg, rgba(216,72,31,.045), transparent 60%);margin:0 -20px;padding:34px 20px 30px;border-radius:6px;}
+  .pin.lead h4{font-size:clamp(28px,3vw,38px);}
+
+  /* sponsored: taped paper card */
+  .pin.sponsored{
+    grid-template-columns:72px 1fr;border:none;margin:26px -20px;padding:30px 20px 26px;
+    background:#FBF6EA;border-radius:6px;
+    box-shadow:0 12px 30px -14px var(--shadow);
+    transform:rotate(-.4deg);
+  }
+  .pin.sponsored::before{
+    content:"";position:absolute;top:-10px;left:48px;width:92px;height:24px;
+    background:rgba(192,148,39,.35);transform:rotate(-3deg);border-radius:2px;
+  }
+  .pin.sponsored .sticker{background:var(--gold);transform:rotate(2deg);}
+  .pin.sponsored .cat{color:var(--gold);}
+  .pin.sponsored .why i{color:#8a7314;}
+
+  /* ---- riso art card ---- */
+  .feature{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:0;margin-top:34px;
+    background:#FBF6EA;border-radius:8px;overflow:hidden;
+    box-shadow:0 18px 44px -18px var(--shadow);
+  }
+  @media(max-width:880px){.feature{grid-template-columns:1fr;}}
+  .riso{position:relative;min-height:300px;background:#EFE0C8;overflow:hidden;}
+  .riso svg{position:absolute;inset:0;width:100%;height:100%;}
+  .feat-body{padding:44px 46px;display:flex;flex-direction:column;justify-content:center;}
+  .feat-body .cat{font-family:var(--disp);font-weight:800;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--clay);margin-bottom:14px;}
+  .feat-body h2{font-family:var(--serif);font-weight:800;font-size:clamp(25px,2.6vw,34px);line-height:1.15;}
+  .feat-body p{font-size:16px;color:var(--ink-soft);margin-top:14px;max-width:400px;}
+  .feat-body .go{
+    margin-top:26px;font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink);
+    border-bottom:2.5px solid var(--clay);align-self:flex-start;padding-bottom:3px;cursor:pointer;
+  }
+
+  /* ---- dark warm band (quiz) ---- */
+  .band{
+    position:relative;margin-top:80px;padding:70px 0;overflow:hidden;
+    background:#241B12;color:#F2E7D3;
+  }
+  .band::before{
+    content:"";position:absolute;inset:-30%;
+    background:
+      radial-gradient(38% 48% at 82% 22%, rgba(232,179,75,.22), transparent 70%),
+      radial-gradient(30% 42% at 8% 88%, rgba(216,72,31,.14), transparent 70%);
+    animation:drift 18s ease-in-out infinite alternate;
+  }
+  .band .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  @media(max-width:880px){.band .wrap{grid-template-columns:1fr;}}
+  .band .k{font-family:var(--disp);font-weight:800;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#E8B34B;}
+  .band h3{font-family:var(--serif);font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1.12;margin:16px 0 12px;}
+  .band p{color:#C9B795;font-size:15.5px;max-width:430px;}
+  .qcard{
+    background:#F6EFE2;color:var(--ink);border-radius:8px;padding:30px 28px;
+    box-shadow:0 22px 50px -18px rgba(0,0,0,.5);transform:rotate(.6deg);
+  }
+  .qcard .qnum{font-family:var(--disp);font-weight:800;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);}
+  .qcard h4{font-family:var(--serif);font-weight:700;font-size:20px;line-height:1.3;margin:12px 0 8px;}
+  .qopt{
+    display:block;width:100%;text-align:left;background:none;
+    border:1.8px solid var(--line);color:var(--ink);border-radius:6px;
+    padding:12px 16px;margin-top:10px;font-family:var(--serif);font-size:15px;font-weight:600;
+    cursor:pointer;transition:all .15s;
+  }
+  .qopt:hover{border-color:var(--clay);transform:translateX(3px);}
+
+  /* ---- footer ---- */
+  footer{border-top:2px solid var(--ink);margin-top:0;padding:40px 0 60px;background:var(--paper-deep);}
+  .froot{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;}
+  .froot .tag{font-family:var(--ital);font-style:italic;color:var(--ink-soft);font-size:15px;}
+</style>
+</head>
+<body>
+
+<div class="previewbar">Morning Paper · дизайны урьдчилсан харагдац — <b>вэб дээр Three.js-ээр амилна</b></div>
+
+<header>
+  <div class="wrap head">
+    <span class="logo">P<span class="bang">!</span>N<span class="bang">.</span></span>
+    <nav class="main">
+      <a class="active" href="#">Өнөөдөр</a>
+      <a href="#">Тайлбар</a>
+      <a href="#">Видео</a>
+      <a href="#">Үйл явдал</a>
+      <a href="#">Бидний тухай</a>
+    </nav>
+    <span class="datestamp">08.07 · Пүрэв</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kick">Өнөөдрийн пин</span>
+      <h1 class="mast">Өнөөдөр мэдэхэд<br><span class="ital">хангалттай.</span></h1>
+      <p class="lede">Чухал мэдээг бид сонгож, утгыг нь тайлбарлана. Та ердөө 7 минут зарцуулна.</p>
+      <div class="hero-ctas">
+        <button class="btn-press">УНШИЖ ЭХЛЭХ</button>
+        <span class="listen">▶ Дугаарыг сонсох · 7:00</span>
+      </div>
+    </div>
+    <div class="pinstage">
+      <div class="halo"></div>
+      <svg width="150" height="230" viewBox="0 0 150 230">
+        <defs>
+          <radialGradient id="head" cx="36%" cy="30%" r="80%">
+            <stop offset="0%" stop-color="#F0703F"/>
+            <stop offset="55%" stop-color="#D8481F"/>
+            <stop offset="100%" stop-color="#8E2B12"/>
+          </radialGradient>
+          <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8C6B2F"/>
+            <stop offset="45%" stop-color="#E8C877"/>
+            <stop offset="60%" stop-color="#C09427"/>
+            <stop offset="100%" stop-color="#7A5B22"/>
+          </linearGradient>
+        </defs>
+        <circle cx="75" cy="62" r="56" fill="url(#head)"/>
+        <ellipse cx="56" cy="42" rx="16" ry="10" fill="#FFDCC2" opacity=".55" transform="rotate(-24 56 42)"/>
+        <rect x="66" y="112" width="18" height="62" rx="9" fill="url(#stem)"/>
+        <path d="M75 174 L75 222" stroke="#6E6C68" stroke-width="5" stroke-linecap="round"/>
+        <path d="M75 174 L75 222" stroke="#BFBDB8" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="note">Three.js · гуулин зүү (интерактив)</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="sechead">
+    <h3>Өдрийн пинүүд</h3><span class="meta">5 мэдээ · 10 минут</span>
+  </div>
+
+  <article class="pin lead">
+    <div><span class="sticker">01</span></div>
+    <div>
+      <div class="cat">Нэг гол зүйл · Эдийн засаг</div>
+      <h4>Төв банк бодлогын хүүг хэвээр хадгалав</h4>
+      <p class="why"><b>Яагаад чухал вэ?</b>Өрх, бизнесийн санхүүжилтийн өртөг ойрын хугацаанд буурахгүй гэсэн дохио.</p>
+      <div class="pmeta"><span>Б.Номин</span><span>2 мин унших</span><span class="save">+ ПИНЛЭХ</span></div>
+    </div>
+  </article>
+
+  <article class="pin">
+    <div><span class="sticker">02</span></div>
+    <div>
+      <div class="cat">Улс төр</div>
+      <h4>Намрын чуулганаар хэлэлцэх хуулийн төслүүд тодорлоо</h4>
+      <p class="why"><b>Яагаад чухал вэ?</b>Татварын шинэчлэл болон цахим үйлчилгээний багц хууль жагсаалтад орсон — бизнест шууд нөлөөтэй.</p>
+      <div class="pmeta"><span>Э.Тэмүүлэн</span><span>3 мин унших</span><span class="save">+ ПИНЛЭХ</span></div>
+    </div>
+  </article>
+
+  <article class="pin sponsored">
+    <div><span class="sticker">S</span></div>
+    <div>
+      <div class="cat">Powered by Unitel · Хамтарсан контент</div>
+      <h4>5G сүлжээ таны бизнест юу өөрчлөх вэ?</h4>
+      <p class="why"><b>Товчхон</b>Жижиг бизнесүүдийн хамгийн бодит 3 хэрэглээг жишээгээр тайлбарлав. <i>Энэ контентыг Unitel-тэй хамтран PIN Студи бэлтгэв.</i></p>
+      <div class="pmeta"><span>PIN Студи</span><span>2 мин унших</span><span class="save">+ ПИНЛЭХ</span></div>
+    </div>
+  </article>
+
+  <div class="sechead"><h3>Онцлох</h3></div>
+  <div class="feature">
+    <div class="riso">
+      <svg viewBox="0 0 480 340" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="rgrain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/><feComposite operator="in" in2="SourceGraphic"/></filter>
+        </defs>
+        <rect width="480" height="340" fill="#EFE0C8"/>
+        <!-- riso layer 1: clay, slightly offset -->
+        <g opacity=".85">
+          <circle cx="330" cy="110" r="95" fill="#D8481F"/>
+          <path d="M40 340 Q 140 180 250 250 T 480 210 L480 340 Z" fill="#D8481F" opacity=".8"/>
+        </g>
+        <!-- riso layer 2: amber, mis-registered by a few px -->
+        <g transform="translate(-7,5)" opacity=".7" style="mix-blend-mode:multiply">
+          <circle cx="336" cy="104" r="95" fill="#C09427"/>
+          <path d="M40 340 Q 150 190 260 255 T 480 220 L480 340 Z" fill="#C09427" opacity=".6"/>
+        </g>
+        <!-- ink details -->
+        <g stroke="#1D1712" stroke-width="3" fill="none" opacity=".8">
+          <path d="M70 90 q 30 -26 62 -4"/>
+          <path d="M80 116 q 26 -20 50 -2"/>
+        </g>
+        <rect width="480" height="340" fill="#1D1712" filter="url(#rgrain)" opacity=".16"/>
+      </svg>
+    </div>
+    <div class="feat-body">
+      <div class="cat">Онцлох · Улс төр</div>
+      <h2>Намрын чуулган: Татварын шинэчлэл юуг өөрчлөх вэ?</h2>
+      <p>Иргэн, бизнес эрхлэгч бүрийн мэдэх ёстой 5 өөрчлөлт.</p>
+      <span class="go">Уншиж эхлэх ⟶</span>
+    </div>
+  </div>
+</div>
+
+<section class="band">
+  <div class="wrap">
+    <div>
+      <span class="k">Пин сорил · №32</span>
+      <h3>Энэ 7 хоногийг санаж үлдэв үү?</h3>
+      <p>Долоо хоногийн пинүүдээс автоматаар үүсдэг 5 асуулт. Баасан бүр шинэчлэгдэнэ.</p>
+    </div>
+    <div class="qcard">
+      <div class="qnum">Асуулт 1/5</div>
+      <h4>Төв банк энэ долоо хоногт бодлогын хүүгээ яасан бэ?</h4>
+      <button class="qopt">Бууруулсан</button>
+      <button class="qopt">Хэвээр хадгалсан</button>
+      <button class="qopt">Нэмэгдүүлсэн</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap froot">
+    <span class="logo" style="font-size:21px">P<span class="bang">!</span>N<span class="bang">.</span></span>
+    <span class="tag">Өдрийн чухлыг хадлаа.</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,6 +3,7 @@
 .feature{
   display:grid;grid-template-columns:1.15fr 1fr;background:var(--ink);color:var(--paper);
   border-radius:4px;overflow:hidden;margin-top:26px;min-height:400px;
+  box-shadow:0 24px 60px -24px var(--wshadow);
 }
 @media(max-width:880px){.feature{grid-template-columns:1fr;}}
 .featArt{position:relative;min-height:280px;overflow:hidden;}

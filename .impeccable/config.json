@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "docs/mockups/pin-homepage-v6.html"
+        ],
+        "createdAt": "2026-08-20T09:36:44.409Z",
+        "reason": "Agent: verbatim fixture of user-approved v6 mockup; styling source of truth, not authored design"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "docs/mockups/pin-article.html"
+        ],
+        "createdAt": "2026-08-20T09:36:44.464Z",
+        "reason": "Agent: verbatim fixture of user-approved article mockup"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "docs/mockups/pin-article.html"
+        ],
+        "createdAt": "2026-08-20T09:36:44.515Z",
+        "reason": "Agent: verbatim fixture; mockup's own progress-bar width transition"
+      }
+    ]
+  }
+}

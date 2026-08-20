@@ -11,6 +11,7 @@ import Quiz from "@/components/home/Quiz";
 import Sidebar from "@/components/home/Sidebar";
 import VideoBand from "@/components/home/VideoBand";
 import Manifesto from "@/components/home/Manifesto";
+import ThreeMount from "@/components/three/ThreeMount";
 import {
   getDigest, getDigestDayChips, getEvents, getFeatured, getMostPinned, getVideos, toCard,
 } from "@/lib/content/accessors";
@@ -24,6 +25,7 @@ export default function Home() {
     <>
       <Header dateLabel={`${digest.dateLabel} · ${digest.weekdayLabel}`} />
       <section className={styles.hero}>
+        <ThreeMount scene="ambient" className={styles.heroAmbient} />
         <div className="wrap">
           <TodayBar storyCount={digest.storyCount} totalMinutes={digest.totalMinutes} updatedAtLabel={digest.updatedAtLabel} />
           <FeatureCard article={toCard(getFeatured())} />

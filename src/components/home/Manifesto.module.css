@@ -1,4 +1,6 @@
 .manif{padding:110px 0 90px;}
+.top{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:center;}
+@media(max-width:880px){.top{grid-template-columns:1fr;gap:10px;}}
 .manif .k{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);}
 .h2{
   font-family:var(--disp);font-weight:900;letter-spacing:-.03em;

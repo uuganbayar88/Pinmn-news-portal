@@ -1,5 +1,42 @@
 .hero {
+  position: relative;
   padding: 26px 0 44px;
+  overflow: hidden;
+}
+
+/* CSS base of the morning-light ambience; the WebGL layer deepens it when available */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -30% -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 46% at 82% 10%, var(--glow), transparent 68%),
+    radial-gradient(26% 34% at 6% 90%, rgba(232, 68, 46, .07), transparent 70%);
+  opacity: .5;
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+.hero > :global(.wrap) {
+  position: relative;
+  z-index: 1;
+}
+
+.heroAmbient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  from { transform: translate3d(-1%, 0, 0) scale(1); }
+  to { transform: translate3d(1.5%, 1%, 0) scale(1.05); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
 }
 
 @media (max-width: 700px) {
