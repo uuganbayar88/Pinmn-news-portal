@@ -8,9 +8,27 @@ const serif = Spectral({ subsets: ["latin", "cyrillic"], weight: ["600", "700", 
 const ital = Playfair_Display({ subsets: ["latin", "cyrillic"], style: ["italic"], weight: ["600", "700"], variable: "--font-ital" });
 const sans = Golos_Text({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "600", "700"], variable: "--font-sans" });
 
+const TITLE = "PIN — Өнөөдөр мэдэхэд хангалттай";
+const DESCRIPTION = "Чухал мэдээг бид сонгож, утгыг нь тайлбарлана. Та ердөө 7 минут зарцуулна.";
+
 export const metadata: Metadata = {
-  title: "PIN — Өнөөдөр мэдэхэд хангалттай",
-  description: "Чухал мэдээг бид сонгож, утгыг нь тайлбарлана. Та ердөө 7 минут зарцуулна.",
+  metadataBase: new URL("https://pin.mn"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "PIN",
+    locale: "mn_MN",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: "/og-placeholder.png", width: 1200, height: 630, alt: TITLE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/og-placeholder.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
