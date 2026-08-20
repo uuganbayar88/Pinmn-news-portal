@@ -3,40 +3,28 @@
 import styles from "@/app/[slug]/article.module.css";
 import { useUi } from "@/components/ui/UiProvider";
 
-export default function ArticleSidebar() {
+export default function ArticleSidebar({ relatedPins }: { relatedPins: { title: string; meta: string }[] }) {
   const { toast } = useUi();
   return (
     <aside>
       <div className={styles.box}>
         <h3>Холбоотой пинүүд</h3>
-        <div className={styles.rel}>
-          <span className={styles.n}>1</span>
-          <div>
-            <h5>Төв банк бодлогын хүүг хэвээр хадгалав</h5>
-            <span>Эдийн засаг · 2 мин</span>
+        {relatedPins.map((p, i) => (
+          <div key={p.title} className={styles.rel}>
+            <span className={styles.n}>{i + 1}</span>
+            <div>
+              <h5>{p.title}</h5>
+              <span>{p.meta}</span>
+            </div>
           </div>
-        </div>
-        <div className={styles.rel}>
-          <span className={styles.n}>2</span>
-          <div>
-            <h5>Цахим үйлчилгээний хуулийн товч тайлбар</h5>
-            <span>Технологи · 3 мин</span>
-          </div>
-        </div>
-        <div className={styles.rel}>
-          <span className={styles.n}>3</span>
-          <div>
-            <h5>ЖДБ-ийн зээлийн шинэ хөтөлбөр</h5>
-            <span>Бизнес · 2 мин</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className={`${styles.box} ${styles.dark}`}>
         <h3>Өглөө бүр — имэйлээр 📬</h3>
         <p>«Өнөөдрийн пин»-ийг 07:30-д шууд инбокс руугаа аваарай.</p>
         <div className={styles.nlForm}>
-          <input type="email" placeholder="И-мэйл хаяг" />
+          <input type="email" placeholder="И-мэйл хаяг" aria-label="И-мэйл хаяг" />
           <button className={`${styles.btn} ${styles.accent}`} onClick={() => toast("Баярлалаа! Маргааш 07:30-д уулзъя 📬")}>
             Пинлэх
           </button>

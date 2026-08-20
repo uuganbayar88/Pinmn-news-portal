@@ -8,7 +8,8 @@ export default function ProgressBar() {
   useEffect(() => {
     const onScroll = () => {
       const h = document.documentElement;
-      setPct((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100);
+      const total = h.scrollHeight - h.clientHeight;
+      setPct(total > 0 ? (h.scrollTop / total) * 100 : 0);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

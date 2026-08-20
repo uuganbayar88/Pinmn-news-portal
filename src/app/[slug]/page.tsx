@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import styles from "./article.module.css";
-import { getAllArticles, getArticle, getDigest } from "@/lib/content/accessors";
+import { getAllArticles, getArticle, getDigest, getRelatedPins } from "@/lib/content/accessors";
 import { buildArticleMetadata, buildNewsArticleJsonLd } from "@/lib/metadata";
+import { formatWhen } from "@/lib/format";
 import ProgressBar from "@/components/article/ProgressBar";
 import ShareRail from "@/components/article/ShareRail";
 import ArticleBody from "@/components/article/ArticleBody";
 import ArticleSidebar from "@/components/article/ArticleSidebar";
+import ListenButton from "@/components/article/ListenButton";
 import Footer from "@/components/chrome/Footer";
 import Header from "@/components/chrome/Header";
 import TabBar from "@/components/chrome/TabBar";
@@ -22,12 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return buildArticleMetadata(article);
 }
 
-function formatWhen(iso: string, readMinutes: number): string {
-  const d = new Date(iso);
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())} · ${readMinutes} мин унших`;
-}
-
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
@@ -40,7 +36,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <Header dateLabel={`${digest.dateLabel} · ${digest.weekdayLabel}`} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildNewsArticleJsonLd(article)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildNewsArticleJsonLd(article)).replace(/</g, "\\u003c") }}
       />
       <div className={styles.articleGrid}>
         <ShareRail />
@@ -55,13 +51,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className={styles.who}>{article.author.name}{article.author.role ? ` · ${article.author.role}` : ""}</div>
               <div className={styles.when}>{formatWhen(article.publishedAt, article.readMinutes)}</div>
             </div>
-            {article.listenDuration && <button className={styles.listenBtn}>🎧 Сонсох · {article.listenDuration}</button>}
+            {article.listenDuration && <ListenButton title={article.title} duration={article.listenDuration} />}
           </div>
           <div className={styles.heroImg} />
           {article.heroCaption && <p className={styles.caption}>{article.heroCaption}</p>}
           <ArticleBody article={article} />
         </main>
-        <ArticleSidebar />
+        <ArticleSidebar relatedPins={getRelatedPins()} />
       </div>
       <Footer />
       <TabBar />

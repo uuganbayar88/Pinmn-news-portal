@@ -3,7 +3,7 @@
 }
 
 /* progress bar */
-.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; z-index: 60; transition: width .1s linear; }
+.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; z-index: 100; transition: width .1s linear; }
 
 /* article-content container: owns the mockup's local palette/font so it doesn't
    leak into the sibling Header/Footer/TabBar, which keep the global brand tokens */
@@ -78,7 +78,8 @@
 .pull span { display: block; font-size: 13px; color: #999; font-weight: 600; margin-top: 8px; }
 
 .inlineVideo {
-  position: relative; border-radius: 16px; height: 280px; margin: 6px 0 8px; overflow: hidden; cursor: pointer;
+  position: relative; width: 100%; border: none; padding: 0; border-radius: 16px; height: 280px;
+  margin: 6px 0 8px; overflow: hidden; cursor: pointer; text-align: left; font: inherit;
   background: linear-gradient(150deg, #274156, #101d26); display: flex; align-items: flex-end; color: #fff;
 }
 .inlineVideo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, .7)); }
