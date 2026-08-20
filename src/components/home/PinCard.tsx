@@ -4,9 +4,9 @@ import styles from "./PinCard.module.css";
 import Reveal from "@/components/ui/Reveal";
 import { useUi } from "@/components/ui/UiProvider";
 import Link from "next/link";
-import type { DigestPin } from "@/lib/content/types";
+import type { DigestPinCard } from "@/lib/content/types";
 
-export default function PinCard({ pin, num }: { pin: DigestPin; num: string }) {
+export default function PinCard({ pin, num }: { pin: DigestPinCard; num: string }) {
   const { toast, playAudio } = useUi();
   const a = pin.article;
   const sponsored = Boolean(a.sponsored);
@@ -35,6 +35,7 @@ export default function PinCard({ pin, num }: { pin: DigestPin; num: string }) {
           <>
             <ul className={styles.bullets}>
               {a.keyPoints.map((k) => {
+                if (!k.includes(":")) return <li key={k}>{k}</li>;
                 const [head, ...rest] = k.split(":");
                 return <li key={k}><b>{head}:</b>{rest.join(":")}</li>;
               })}
@@ -53,7 +54,7 @@ export default function PinCard({ pin, num }: { pin: DigestPin; num: string }) {
             </button>
           )}
           <span>{a.readMinutes} мин унших</span>
-          <span className={styles.save} onClick={() => toast("Пинлэгдлээ 📌")}>+ ПИНЛЭХ</span>
+          <button className={styles.save} onClick={() => toast("Пинлэгдлээ 📌")}>+ ПИНЛЭХ</button>
         </div>
       </div>
     </Reveal>

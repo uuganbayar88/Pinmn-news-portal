@@ -4,7 +4,7 @@ import styles from "./DayChips.module.css";
 import Reveal from "@/components/ui/Reveal";
 import { useUi } from "@/components/ui/UiProvider";
 
-export default function DayChips({ chips }: { chips: { label: string; date: string; active: boolean }[] }) {
+export default function DayChips({ chips }: { chips: { label: string; date: string; active: boolean; toast?: string }[] }) {
   const { toast } = useUi();
   return (
     <Reveal className={styles.daysbar}>
@@ -12,7 +12,7 @@ export default function DayChips({ chips }: { chips: { label: string; date: stri
         <button
           key={c.date}
           className={`${styles.daychip} ${c.active ? styles.active : ""}`}
-          onClick={c.active ? undefined : () => toast(`${c.label.slice(-5)}-ны пинүүд (демо)`)}
+          onClick={c.active || !c.toast ? undefined : () => toast(c.toast!)}
         >
           {c.label}
         </button>

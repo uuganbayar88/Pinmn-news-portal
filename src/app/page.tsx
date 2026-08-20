@@ -12,29 +12,31 @@ import Sidebar from "@/components/home/Sidebar";
 import VideoBand from "@/components/home/VideoBand";
 import Manifesto from "@/components/home/Manifesto";
 import {
-  getDigest, getDigestDayChips, getEvents, getFeatured, getMostPinned, getVideos,
+  getDigest, getDigestDayChips, getEvents, getFeatured, getMostPinned, getVideos, toCard,
 } from "@/lib/content/accessors";
+import type { DigestPinCard } from "@/lib/content/types";
 
 export default function Home() {
   const digest = getDigest();
+  const pins: DigestPinCard[] = digest.pins.map((pin) => ({ article: toCard(pin.article), lead: pin.lead }));
 
   return (
     <>
       <Header dateLabel={`${digest.dateLabel} · ${digest.weekdayLabel}`} />
       <section className={styles.hero}>
         <div className="wrap">
-          <TodayBar digest={digest} />
-          <FeatureCard article={getFeatured()} />
+          <TodayBar storyCount={digest.storyCount} totalMinutes={digest.totalMinutes} updatedAtLabel={digest.updatedAtLabel} />
+          <FeatureCard article={toCard(getFeatured())} />
         </div>
       </section>
 
       <div className="wrap">
-        <SectionBar title="Өдрийн пинүүд" meta={`${digest.pins.length} мэдээ · 10 минут`} />
+        <SectionBar title="Өдрийн пинүүд" meta={`${digest.pins.length} мэдээ · ${digest.pinListMinutes} минут`} />
         <DayChips chips={getDigestDayChips()} />
         <div className={styles.grid}>
           <main>
-            {digest.pins.map((pin, i) => {
-              const num = digest.pins.slice(0, i + 1).filter((p) => !p.article.sponsored).length;
+            {pins.map((pin, i) => {
+              const num = pins.slice(0, i + 1).filter((p) => !p.article.sponsored).length;
               return <PinCard key={pin.article.slug} pin={pin} num={String(num).padStart(2, "0")} />;
             })}
           </main>

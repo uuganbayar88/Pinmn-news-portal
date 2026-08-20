@@ -3,9 +3,19 @@
 import styles from "./TodayBar.module.css";
 import Reveal from "@/components/ui/Reveal";
 import { useUi } from "@/components/ui/UiProvider";
-import type { DailyDigest } from "@/lib/content/types";
 
-export default function TodayBar({ digest }: { digest: DailyDigest }) {
+// Takes only the scalar fields it renders (not the whole DailyDigest) so the
+// full pins array — each carrying a full Article body — never gets
+// serialized into this client component's payload.
+export default function TodayBar({
+  storyCount,
+  totalMinutes,
+  updatedAtLabel,
+}: {
+  storyCount: number;
+  totalMinutes: number;
+  updatedAtLabel: string;
+}) {
   const { playAudio } = useUi();
   return (
     <Reveal className={styles.todaybar}>
@@ -18,7 +28,7 @@ export default function TodayBar({ digest }: { digest: DailyDigest }) {
           <span className={styles.lp} />Дугаарыг сонсох · 7:00
         </button>
         <span className={styles.tbm}>
-          <b>{digest.storyCount}</b> мэдээ · <b>{digest.totalMinutes}</b> минут · {digest.updatedAtLabel}
+          <b>{storyCount}</b> мэдээ · <b>{totalMinutes}</b> минут · {updatedAtLabel}
         </span>
       </div>
     </Reveal>
