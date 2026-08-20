@@ -19,17 +19,26 @@ export const digests: DailyDigest[] = [
       { article: bySlug("5g-suljee-biznes") },
       { article: bySlug("shine-avtobusny-chiglel") },
     ],
+    // storyCount (8) tracks the mockup's editorial count for the day, which
+    // is larger than the 5 pins actually rendered here — mockup-faithful, not a bug.
     storyCount: 8,
     totalMinutes: 7,
+    pinListMinutes: 10,
     updatedAtLabel: "7:30-д шинэчлэв",
   },
 ];
 
 export const dayChips = [
   { label: "Өнөөдөр · 08.07", date: "2026-08-07", active: true },
-  { label: "Лх · 08.06", date: "2026-08-06", active: false },
-  { label: "Мя · 08.05", date: "2026-08-05", active: false },
-  { label: "Да · 08.04", date: "2026-08-04", active: false },
+  { label: "Лх · 08.06", date: "2026-08-06", active: false, toast: "08.06-ны пинүүд (демо)" },
+  { label: "Мя · 08.05", date: "2026-08-05", active: false, toast: "08.05-ны пинүүд (демо)" },
+  { label: "Да · 08.04", date: "2026-08-04", active: false, toast: "08.04-ний пинүүд (демо)" },
+];
+
+export const relatedPins: { title: string; meta: string }[] = [
+  { title: "Төв банк бодлогын хүүг хэвээр хадгалав", meta: "Эдийн засаг · 2 мин" },
+  { title: "Цахим үйлчилгээний хуулийн товч тайлбар", meta: "Технологи · 3 мин" },
+  { title: "ЖДБ-ийн зээлийн шинэ хөтөлбөр", meta: "Бизнес · 2 мин" },
 ];
 
 export const events: EventItem[] = [
