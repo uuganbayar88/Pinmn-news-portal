@@ -9,6 +9,7 @@ export default defineConfig({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
   plugins: [react()] as any,
   test: {
+    include: ["src/**/*.test.{ts,tsx}"],
     environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
     css: false,

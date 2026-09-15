@@ -1,0 +1,11 @@
+{
+  "folders": [{ "name": "pin.mn frontend", "path": "." }],
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "ms-playwright.playwright",
+    ],
+  },
+  "settings": { "typescript.tsdk": "node_modules/typescript/lib" },
+}

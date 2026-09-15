@@ -45,3 +45,8 @@ next-env.d.ts
 
 # SDD workspace
 .superpowers/
+
+# Frontend development fixtures and browser output
+!.env.example
+test-results/
+playwright-report/
